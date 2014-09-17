@@ -12,7 +12,9 @@ import signal
 import yaml
 
 from app import Simulation
+
 import workflows
+import web
 
 log = logging.getLogger('msg.ctrl')
 
@@ -131,10 +133,11 @@ def main():
     logging.basicConfig(
         format="%(asctime)s:%(levelname)s:%(name)s:%(threadName)s:%(message)s",
         level=logging.DEBUG)
+
     endpoint = os.environ.get(
         'STEM_CONTROL_ENDPOINT', 'tcp://127.0.0.1:3900')
-    ctx = zmq.Context()
 
+    ctx = zmq.Context()
     controller = SimController(ctx, endpoint)
 
     def signal_handler(s, f):
@@ -142,6 +145,10 @@ def main():
         controller.stop()
     signal.signal(signal.SIGINT, signal_handler)
 
+    log.info("Starting webserver")
+    controller.threads.append(eventlet.spawn(web.start_server, controller))
+
+    log.info("Starting controller")
     controller.run()
 
 

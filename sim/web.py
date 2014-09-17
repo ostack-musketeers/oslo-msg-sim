@@ -1,4 +1,10 @@
-from flask import Flask, render_template, request, jsonify, abort, redirect
+import eventlet
+from eventlet import wsgi
+
+eventlet.monkey_patch()
+
+from flask import (
+    Flask, render_template)
 
 app = Flask('msgsim')
 
@@ -8,11 +14,7 @@ def index():
     return render_template('index.j2')
 
 
-@app.route("/stems")
-def stems():
-    pass
-
-
-@app.route("/stats")
-def stats():
-    pass
+def start_server(controller):
+    listener = eventlet.listen(('0.0.0.0', 8080))
+    app.controller = controller
+    wsgi.server(listener, app)
