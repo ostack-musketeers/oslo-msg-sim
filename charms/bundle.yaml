@@ -1,0 +1,15 @@
+rabbit-sim:
+  services:
+    rabbitmq:
+      charm_url: cs:trusty/rabbitmq-server
+    sim-stem:
+      charm: sim-stem
+      units: 5
+    sim-controller:
+      charm: sim-controller
+  relations:
+    - [sim-stem, sim-controller]
+    - [rabbitmq, sim-stem]
+    
+
+    

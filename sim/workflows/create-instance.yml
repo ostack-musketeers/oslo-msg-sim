@@ -1,0 +1,28 @@
+type: create-instance
+roles:
+  - compute-api
+  - compute-scheduler
+  - compute-conductor
+  - compute-node
+  - neutron-gateway
+  - neutron-agent
+  - cinder-volume
+states:
+  api-request:
+    role: compute-api
+    transition: schedule-instance
+  schedule-instance:
+    role: compute-scheduler
+    transition: allocate-instance
+  allocate-instance:
+    role: compute-conductor
+    transition: instance-setup
+  instance-setup:
+    role: compute-node
+    transition: instance-network-setup
+  instance-network-setup:
+    role: neutron-agent
+    transition: allocate-instance-network
+  allocate-instance-network:
+    role: neutron-gateway
+    transition: allocate-instance-networkb

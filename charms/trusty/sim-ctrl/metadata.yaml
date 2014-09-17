@@ -1,0 +1,5 @@
+name: sim-ctrl
+title: An oslo.messaging simulator
+provides:
+  sim-ctrl:
+    interface: sim-ctrl

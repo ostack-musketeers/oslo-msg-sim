@@ -1,0 +1,5 @@
+options:
+  message-rpc:
+    default: rabbitmq
+    type: string
+    description: Message subsystem to use either rabbitmq or zeromq

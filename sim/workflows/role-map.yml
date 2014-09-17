@@ -1,0 +1,16 @@
+
+roles:
+  compute-api:
+    ratio: 10
+  compute-scheduler:
+    ratio: 5
+  compute-conductor:
+    ratio: 5
+  compute-node:
+    ratio: 40
+  neutron-agent:
+    ratio: 35
+  neutron-gateway:
+    ratio: 5
+  
+  

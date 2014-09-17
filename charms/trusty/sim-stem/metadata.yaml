@@ -1,0 +1,7 @@
+name: sim-stem
+title: An oslo.messaging simulator node
+requires:
+  sim-ctrl:
+    interface: sim-ctrl
+  rabbitmq:
+    interface: rabbimq
